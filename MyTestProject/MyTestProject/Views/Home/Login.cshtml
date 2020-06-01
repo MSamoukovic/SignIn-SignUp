@@ -1,0 +1,130 @@
+﻿@*@model MyTestProject.DTOs.UserLoginDTO
+
+    <head>
+        <link rel="stylesheet" href="../../Scripts/Style/login.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    </head>
+
+    <body>
+            <div class="container h-100">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="user_card">
+                        <div class="d-flex justify-content-center">
+                            <div class="brand_logo_container">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_i8a3Z2Mxc_RRjyxzRNprjUAEbk199WttXu6nQ7_aP2MstDIB&usqp=CAU" class="brand_logo" alt="Logo">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center form_container">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                            <form>
+                                <div class="input-group mb-1">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control input_user", @placeholder = "username" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="input-group mb-1">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control input_pass", @placeholder = "password" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customControlInline">
+                                        <label class="custom-control-label" for="customControlInline">Remember me</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3 login_container">
+                                    <input type="submit" class="btn login_btn" value="Login" />
+                                </div>
+                                @if (TempData["incorrectData"] == "incorrect")
+                                {
+                                    <div style="text-align:center" class="text-danger">Incorrect username/password !</div>
+                                }
+                            </form>
+                            }
+                        </div>
+                        <div class="mt-4">
+                            <div class="d-flex justify-content-center links">
+                                Don't have an account?&nbsp;&nbsp;
+                                @Html.ActionLink("Sign Up", "SignUp")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </body>*@
+
+
+@model MyTestProject.DTOs.UserLoginDTO
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="../../Scripts/Style/signIn.css">
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="jquery-3.5.1.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-4 register-left">
+                <img src="https://cdn0.iconfinder.com/data/icons/entypo/94/bust-512.png" alt="" />
+                <h3>Welcome</h3>
+                <input type='button' value='Sign Up' id='myButton' onClick='redirectOnSignUp()' />
+            </div>
+            <div class="col-md-8 register-right">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Sign In</h3>
+                        <div class="row register-form">
+                            <div class="col-md-12 my-auto">
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name *" } })
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Name *" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                                    @if (TempData["incorrectData"] == "incorrect")
+                                    {
+                                        <div style="text-align:center" class="text-danger">Incorrect username/password !</div>
+                                    }
+                                <input type="submit" class="btnLogin" value="Login" /><br />
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function redirectOnSignUp() {
+        document.location = 'SignUp';
+    }
+</script>
